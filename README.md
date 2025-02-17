@@ -8,7 +8,7 @@ I would like to create an api that helps nba fans to analyze their favourite NBA
 5. Input a ZIP code to find the nearest NBA arena and inform when the selected player will play there, along with a link to purchase tickets.
 
 ## Execution Plan
-1. By the end of week 4, I'll set up basic api request by using nba.api and implement basic data storage with json module.
+1. By the end of week 4, I'll set up basic api request by using balldontlie_api and implement basic data storage with json module.
 2. By the end of week 5, I will creat player search functionality and bulid a command-line interface.
 3. By the end of week 6, I will implement game shcedule retrieval, and set up google calendar api access, and write python code to create calendar events.
 4. By the end of week 7, I will implement statistics comparison, which will fetch player's season statistics and compare multiple seasons then calculate basic statistical differences.
