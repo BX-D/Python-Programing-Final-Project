@@ -5,7 +5,6 @@ I would like to create an api that helps nba fans to analyze their favourite NBA
 2. For active players, provide the schedule of upcoming games, and you can add it to your google calendar to remind you to watch the game.
 3. Input a specific season to display the player's statistics for that season.
 4. Input multiple seasons to compare the player's statistics across those seasons.
-5. Input a ZIP code to find the nearest NBA arena and inform when the selected player will play there, along with a link to purchase tickets.
 
 ## Execution Plan
 1. By the end of week 4, I'll set up basic api request by using balldontlie_api and implement basic data storage with json module.
