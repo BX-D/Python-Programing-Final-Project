@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+balldontlie = "*"
+requests = "*"
+fastapi = "*"
+uvicorn = "*"
+dotenv = "*"
+google-auth = "*"
+google-auth-oauthlib = "*"
+google-api-python-client = "*"
+python-dateutil = "*"
+
+[dev-packages]
+pytest = "*"
+
+[requires]
+python_version = "3.13"
