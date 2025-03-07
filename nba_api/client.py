@@ -488,3 +488,67 @@ class BallDontLieClient:
         except Exception as e:
             logger.exception(f"Unexpected error comparing seasons for player {player_id}: {str(e)}")
             raise NBAApiException(f"Unexpected error comparing seasons for player {player_id}: {str(e)}") from e
+        
+
+    def format_game_for_calendar(self, game: Dict) -> Dict:
+        """Format a game for calendar display.
+        
+        Args:
+            game: Game data from API
+            
+        Returns:
+            Dict with formatted game information for calendar
+        """
+        # Extract teams
+        home_team = game.get('home_team', {})
+        visitor_team = game.get('visitor_team', {})
+        
+        # Format game date and time
+        # Note: The API provides the date without specific time information
+        # We'll use an estimated game time (7:30 PM local time) for demonstration
+        game_date = game.get('date', '')
+        game_datetime = f"{game_date}T19:30:00"
+        
+        # Format game information
+        home_team_name = home_team.get('full_name', 'Unknown')
+        visitor_team_name = visitor_team.get('full_name', 'Unknown')
+        
+        # Create a formatted event
+        return {
+            'summary': f"{visitor_team_name} @ {home_team_name}",
+            'location': f"{home_team.get('city', '')}, {home_team.get('name', 'Arena')}",
+            'description': f"NBA game: {visitor_team_name} at {home_team_name}",
+            'start_datetime': game_datetime,
+            'end_datetime': f"{game_date}T22:00:00",  # Assuming ~2.5 hour games
+            'game_id': game.get('id'),
+            'home_team': home_team_name,
+            'visitor_team': visitor_team_name
+        }
+        
+    
+    def get_team_games(self, team_id: int, start_date: Optional[str] = None, 
+                   end_date: Optional[str] = None, season: Optional[int] = None) -> List[Dict]:
+        """Get games for a specific team with flexible filtering.
+        
+        Args:
+            team_id: The team's ID
+            start_date: Start date in YYYY-MM-DD format (inclusive)
+            end_date: End date in YYYY-MM-DD format (inclusive)
+            season: Season year (e.g., 2023 for 2023-2024 season)
+            
+        Returns:
+            List of games matching the criteria
+        """
+        params = {"team_ids[]": team_id}
+        
+        if start_date:
+            params["start_date"] = start_date
+        
+        if end_date:
+            params["end_date"] = end_date
+            
+        if season:
+            params["seasons[]"] = season
+        
+        response = self._request("games", params)
+        return response.get("data", [])
